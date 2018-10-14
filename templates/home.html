@@ -1,0 +1,52 @@
+<!doctype html>
+<title>Brandon's Comic Viewing Website</title>
+<!-The page for displaying the gallery of "comics"->
+<head>
+	<!--style sheets have the be placed in the static folder and accessed like this:
+	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+	-->
+	
+	<!-- Link for Semantic UI -->
+	<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+	<link href="{{ url_for('static', filename='semantic.min.css') }}" rel="stylesheet" type="text/css">
+	<script src="{{ url_for('static', filename='semantic.min.js') }}"></script>
+	
+</head>
+
+<body style="background-color: mintcream">
+	<!-- Navigation Bar -->
+	<div class="ui inverted attached menu">
+		<a class="active item" href="/">Home</a>
+		<a class="item" href="/files">Browse</a>
+		<a class="item" href="/about">About</a>
+		
+		<div class="right menu">
+			<form method="post" name="search_form" action="/search">
+				<div class="item">
+				  <div class="ui icon input">
+					<input type="text" placeholder="Search..." name="search">
+					<i class="search icon"></i>
+				  </div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<style>
+		body{
+			text-align: center;
+		}
+	</style>
+	
+	<!-- Main -->
+	<h2>Brandon's Comic Viewing Website</h2>
+	<h1>Welcome to the Website!!!</h1>
+	<br>
+	<a href="files"><button class="ui secondary massive animated fade button">
+		<div class="visible content">Click Here to Start Browsing</div>
+		<div class="hidden content">Enjoy!!</div>
+	</button></a>
+</body>
+
+
+

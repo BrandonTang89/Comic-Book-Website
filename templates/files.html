@@ -1,0 +1,150 @@
+<!doctype html>
+<title>Brandon's Comic Viewing Website</title>
+<!-The page for displaying the gallery of "comics"->
+<head>
+	<!--style sheets have the be placed in the static folder and accessed like this:
+	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+	-->
+	
+	<!-- Link for Semantic UI -->
+	<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+	<link href="{{ url_for('static', filename='semantic.min.css') }}" rel="stylesheet" type="text/css">
+	<script src="{{ url_for('static', filename='semantic.min.js') }}"></script>
+	
+	<!-- Style for page -->
+	<style>
+		h2{
+			text-align: center;
+		}
+		img{
+		   	width: 100%;
+			height: auto;
+		   }
+		img:hover{
+			transform: scale(1.05);
+			transition: 0.05s;
+		}
+	</style>
+</head>
+
+<body style="background-color: mintcream">
+	<!-- Navigation Bar -->
+	<div class="ui inverted attached menu">
+		<a class="item" href="/">Home</a>
+		<a class="active item" href="/files">Browse</a>
+		<a class="item" href="/about">About</a>
+		
+		<div class="right menu">
+			<form method="post" name="search_form" action="/search">
+				<div class="item">
+				  <div class="ui icon input">
+					<input type="text" placeholder="Search..." name="search">
+					<i class="search icon"></i>
+				  </div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<!-- Main -->
+	<h2>Brandon's Comic Viewing Website</h2>
+	<h2>Page {{current_page}} of {{total_pages}}</h2>
+	
+	<div style="margin-left: 5%; margin-right: 5%;">
+		{% for filename, filepic in filenames %}
+			{% if loop.index %4 == 1 %}
+				<div class="ui grid">
+			{% endif %}
+				
+					<div class="four wide column" id="{{filename}}"><img src="/static/files/{{filename}}/{{filepic}}"><h4>{{filename}}</h4></div>
+			
+			{% if loop.index %4 == 0 %}
+				</div>
+			{% endif %}
+		
+		{% endfor %}
+	
+	
+		{%if total_files4 != 0 %}
+		</div>
+
+		{% endif %}
+	</div>
+	<br>
+	
+
+	<!--Form for naviagating the browser -->
+	<div style="text-align: center;">
+		<div class="ui button" name="pre_page" style="width: 200px">Previous Page</div>
+		<div class="ui button" name="next_page" style="width: 200px">Next Page</div>
+	</div>
+	<br>
+	
+	<form class = "ui form" id="browser" method="post" style="margin-left: 5%">
+		<div class="two wide field">
+			<div class="ui action input">
+				<select class="ui dropdown" name="page">
+					<option value="">Jump to Page...</option>
+					{%for i in range(total_pages)%}
+					<option value="{{i+1}}">{{i+1}}</option>
+					{%endfor%}
+				</select>
+				<button class="ui button" type="submit">Go</button>
+			</div>
+			
+		</div>
+	</form>
+	<br>
+
+	<!--Form for jumping to specific comic-->
+	<h3 style="margin-left: 5%;">Jump to Specific Comic</h3>
+	<form class="ui form" id="myform" method="post" style="margin-left: 5%;" action="/file">
+		<div class="six wide field">
+			<label>Filename</label>
+			<input name="filename" type="text">
+		</div>
+		<div class="three wide field">
+			<label>Page No.</label>
+			<div class="ui action input">
+				<input name="pageno" type="number" value="1" min="1" max="1000">
+				<button class="ui button" type="submit">Go!!</button>
+			</div>
+		</div>
+	</form>
+	<br>
+	
+	
+	<script>
+		$('.ui.dropdown').dropdown();
+		window.onload=function() {
+			<!--This script helps navigate the comic browser-->
+			document.getElementsByName("next_page")[0].onclick=function(){
+				browser=document.getElementById("browser");
+				browser.elements["page"].value={{current_page}}+1;
+				browser.submit();
+			}
+			document.getElementsByName("pre_page")[0].onclick=function(){
+				browser=document.getElementById("browser");
+				browser.elements["page"].value={{current_page}}-1;
+				browser.submit();
+			}
+			
+			<!--This script submits the form with the comic name when the comic is clicked-->
+			{% for filename,filepic in filenames %}
+			document.getElementById("{{filename}}").onclick=function() {
+				myform = document.getElementById("myform");
+				myform.elements["filename"].value = "{{filename}}";
+				myform.elements["pageno"].value = 1;
+				myform.submit();
+				return false;  // cancel the actual link
+			}
+			{% endfor %}
+			}
+
+	</script>
+</body>
+
+
+
+
+

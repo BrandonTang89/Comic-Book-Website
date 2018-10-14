@@ -1,0 +1,59 @@
+<!doctype html>
+<title>Brandon's Comic Viewing Website</title>
+<!-About Page->
+<head>
+	<!--style sheets have the be placed in the static folder and accessed like this:
+	<link href="{{ url_for('static', filename='style.css') }}" rel="stylesheet" type="text/css">
+	-->
+	
+	<!-- Link for Semantic UI -->
+	<script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+	<link href="{{ url_for('static', filename='semantic.min.css') }}" rel="stylesheet" type="text/css">
+	<script src="{{ url_for('static', filename='semantic.min.js') }}"></script>
+	
+</head>
+
+<body style="background-color: mintcream">
+	<!-- Navigation Bar -->
+	<div class="ui inverted attached menu">
+		<a class="item" href="/">Home</a>
+		<a class="item" href="/files">Browse</a>
+		<a class="active item" href="/about">About</a>
+		
+		<div class="right menu">
+			<form method="post" name="search_form" action="/search">
+				<div class="item">
+				  <div class="ui icon input">
+					<input type="text" placeholder="Search..." name="search">
+					<i class="search icon"></i>
+				  </div>
+				</div>
+			</form>
+		</div>
+	</div>
+	
+	<style>
+		body{
+			text-align: center;
+		}
+	</style>
+	
+	<!-- Main -->
+	<h2>Brandon's Comic Viewing Website</h2>
+	<h2>About the website</h2>
+	<br>
+	<div style="margin-left: 20%; margin-right: 20%;">
+		Search mechanism: A comic appears as a search result either if the search is a subset of the comic's name or the search is a comic tag.
+		
+		<br><br><h3>List of comic tags</h3>
+		<ul style="text-align: left">
+			<li>Date: Each comic's date of release also acts as a tag. Format (YYYYMMDD)</li>
+			<li>Over100: Comics over 100 pages long</li>
+		</ul>
+	</div>
+	
+	
+</body>
+
+
+
