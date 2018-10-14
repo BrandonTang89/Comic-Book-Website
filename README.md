@@ -12,8 +12,8 @@ Dependencies
 
 Instructions for use
 <ul>
-  <li>Comics come as directories with jpgs and a data file containing "tags" for that comic</li>
+  <li>Comics come as directories with jpgs and a data file containing "tags" for that comic (first tag is the release date)</li>
   <li>Comics go in the 'static/files' folder</li>
   <li>Start the server with 'run application.cmd" or "run.sh"</li>
   <li>Go to localhost:5000 to view website</li>
-</li>
+</ul>
