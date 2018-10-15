@@ -6,7 +6,7 @@ from math import ceil
 #Variables
 file_directory = "static/files"
 files_per_page = 10
-
+restricted_tags = ["hentai", "porn"]
 ##Main
 app = Flask(__name__)
 @app.route('/')
@@ -36,6 +36,9 @@ def files():
         with open (file_directory+"/"+filename+"/data.txt") as data:#opening data.txt
             tags = [line.rstrip() for line in data]                 #tags in a list, one on each line; removing trailing whitespace
         date = int(tags[0])                                         #date of the comic in the first line
+
+        if any([tag for tag in tags if tag in restricted_tags]):    #Filter
+            continue
                     
         filenames.append(((filename,comic[0]),date))
 
@@ -89,15 +92,17 @@ def search():
         return redirect("/files")
     else:
         search = request.form['search']     #Search stores the search phrase
+        lower = search.lower()
+        restricted = False if any([tag for tag in restricted_tags if tag in search]) else True
         try:
-            page = int(request.form['page'])        
+            page = int(request.form['page'])
         except:
             #go to first page if new search
             page = 1
             
         filenames = []
-        filepics = []
         for filename in os.listdir(file_directory):
+
             comic = os.listdir(file_directory+"/"+filename)
             comic.sort()                                                #Sort to ensure the pages are displayed in the right order
             comic.remove("data.txt")                                    #remove data file from pages of comic
@@ -105,8 +110,20 @@ def search():
             with open (file_directory+"/"+filename+"/data.txt") as data:#opening data.txt
                 tags = [line.rstrip() for line in data]                 #tags in a list, one on each line; removing trailing whitespace
             date = int(tags[0])                                         #date of the comic in the first line
-                    
-            if search in tags or search.lower() in filename.lower():
+            
+            #Choosing whether to add the comic in search
+            add = False
+            if any([tag for tag in tags if tag in restricted_tags]) and restricted:
+                continue
+            for tag in tags:
+                if tag in lower:
+                    add = True
+
+            search_terms = lower.split()
+            if any([match for match in search_terms if match in filename.lower()]):
+                add = True
+                
+            if add:
                 filenames.append(((filename,comic[0]),date))
 
         def sortfn(element):
