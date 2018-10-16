@@ -1,8 +1,10 @@
+#!/usr/bin/env python3
 from flask import *
 import os
 import re
 from math import ceil
 
+import sys
 #Variables
 file_directory = "static/files"
 files_per_page = 10
@@ -47,17 +49,19 @@ def files():
         
     filenames.sort(key=sortfn, reverse=True)                        #sort by newest to oldest
     filenames = [filename[0] for filename in filenames]
-    
-    total_pages= ceil(len(filenames)/files_per_page)
+
+    total_files = len(filenames)
+    total_pages= ceil(total_files/files_per_page)
     if page > total_pages or page < 1:
         page=1
     
     filenames= filenames[files_per_page*(page-1):files_per_page*(page)]
-    total_files = len(filenames)
+    
     try:
         return render_template('files.html', filenames=filenames, total_files=total_files, current_page=page, total_pages=total_pages)
     except:
-        return redirect('/files')
+        return "Error occurred in 'files'"
+        #return redirect('/files')
 
 #Page for reading
 @app.route('/file', methods=['GET', 'POST'])
