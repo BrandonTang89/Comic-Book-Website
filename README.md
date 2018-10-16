@@ -5,18 +5,18 @@ A sample website for viewing web comics
   <li>Uses semantic UI as HTML framework</li>
 </ul>
 
-Dependencies
+<b>Dependencies</b>
 <ul>
   <li>Python 3.7+</li>
   <li>pytz python library</li>
   <li>flask python library</li>
 </ul>
 
-Installing python libraries
+<b>Installing python libraries</b>
 <pre>pip3 install flask pytz</pre>
 <i>Use 'pip' instead of pip3 for windows</i>
 
-Instructions for use
+<b>Instructions for use</b>
 <ul>
   <li>Comics come as directories with jpgs and a data file containing "tags" for that comic (first tag is the release date)</li>
   <li>Comics go in the 'static/files' folder</li>
