@@ -80,7 +80,7 @@ def read():
             comic.sort()
             comic.remove("data.txt") #remove data file from pages of comic
             pagename= comic[pageno -1]
-            no_of_pages = len(os.listdir(filepath))
+            no_of_pages = len(comic)
             
             if pageno < 1:
                 raise "page number out of range"
@@ -97,6 +97,10 @@ def search():
     else:
         search = request.form['search']     #Search stores the search phrase
         lower = search.lower()
+        file = open("searches.txt","a+")
+        file.write(search+"\n")
+
+        file.close()
         restricted = False if any([tag for tag in restricted_tags if tag in search]) else True
         try:
             page = int(request.form['page'])
