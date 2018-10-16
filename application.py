@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
 from flask import *
 import os
-import re
+import pytz
+from datetime import datetime
 from math import ceil
 
 import sys
@@ -9,6 +10,11 @@ import sys
 file_directory = "static/files"
 files_per_page = 10
 restricted_tags = ["hentai", "porn"]
+
+#Time settings
+tz = pytz.timezone('Asia/Singapore')
+fmt = "%Y-%m-%d %H:%M:%S %Z%z"                                      #format for time
+
 ##Main
 app = Flask(__name__)
 @app.route('/')
@@ -98,7 +104,7 @@ def search():
         search = request.form['search']     #Search stores the search phrase
         lower = search.lower()
         file = open("searches.txt","a+")
-        file.write(search+"\n")
+        file.write(search+ "," + request.remote_addr+ "," + datetime.now(tz).strftime(fmt)[:-9] + "\n")
 
         file.close()
         restricted = False if any([tag for tag in restricted_tags if tag in search]) else True
