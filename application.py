@@ -113,7 +113,7 @@ def search():
         file.write(search+ "," + request.remote_addr+ "," + datetime.now(tz).strftime(fmt)[:-9] + "\n")
 
         file.close()
-        restricted = False if any([tag for tag in restricted_tags if tag in search]) else True
+        restricted = False if any([tag for tag in restricted_tags if tag in lower]) else True
         try:
             page = int(request.form['page'])
         except:
