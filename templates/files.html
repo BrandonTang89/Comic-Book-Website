@@ -117,6 +117,25 @@
 	<script>
 		$('.ui.dropdown').dropdown();
 		window.onload=function() {
+			//Preload next page if not last page
+			{% if current_page != total_pages %}
+			var images = new Array()
+			function preload(arr) {
+				for (i = 0; i < arr.length; i++) {
+					images[i] = new Image();
+					images[i].src = preload.arguments[i];
+				}
+			}
+			preload(
+				[
+					{%for filename,filepic in next_filenames[:-1]%}
+					"/static/files/{{filename}}/{{filepic}}",
+					{% endfor %}
+					"/static/files/{{next_filenames[-1][0]}}/{{next_filenames[-1][1]}}"
+				]
+			);
+			{% endif %}
+			
 			<!--This script helps navigate the comic browser-->
 			document.getElementsByName("next_page")[0].onclick=function(){
 				browser=document.getElementById("browser");

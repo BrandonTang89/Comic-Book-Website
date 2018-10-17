@@ -32,7 +32,10 @@ def files():
     if request.method == 'GET':
         page=1
     else:
-        page = int(request.form['page'])
+        try:
+            page = int(request.form['page'])
+        except:
+            page = 1
     
     filenames = []
     filepics = []
@@ -60,13 +63,15 @@ def files():
     total_pages= ceil(total_files/files_per_page)
     if page > total_pages or page < 1:
         page=1
-    
+
+    next_filenames= filenames[files_per_page*(page):files_per_page*(page+1)]
     filenames= filenames[files_per_page*(page-1):files_per_page*(page)]
     
-    try:
-        return render_template('files.html', filenames=filenames, total_files=total_files, current_page=page, total_pages=total_pages)
-    except:
-        return "Error occurred in 'files'"
+    
+
+    return render_template('files.html', filenames=filenames, total_files=total_files, current_page=page, total_pages=total_pages, next_filenames = next_filenames)
+    #except:
+     #   return "Error occurred in 'files'"
         #return redirect('/files')
 
 #Page for reading
@@ -86,12 +91,13 @@ def read():
             comic.sort()
             comic.remove("data.txt") #remove data file from pages of comic
             pagename= comic[pageno -1]
+            next_page = comic[pageno]
             no_of_pages = len(comic)
             
             if pageno < 1:
                 raise "page number out of range"
        
-            return render_template("file.html", pageno=pageno, filename=filename,pagename=pagename, no_of_pages=no_of_pages)
+            return render_template("file.html", pageno=pageno, filename=filename,pagename=pagename, no_of_pages=no_of_pages, next_page=next_page)
         except:
             return redirect('/files')
 

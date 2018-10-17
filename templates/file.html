@@ -72,6 +72,10 @@
 	<script>
 	$('.ui.dropdown').dropdown();
 	window.onload=function() {
+			//Preload next image
+			next_img = new Image();
+			next_img.src = "/static/files/{{filename}}/{{next_page}}";
+		
 			//Functions for next and previous page
 			document.getElementsByName("next_page")[0].onclick=function() {
 				myform = document.getElementById("myform");
