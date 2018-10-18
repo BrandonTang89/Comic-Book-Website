@@ -126,17 +126,19 @@ def search():
             comic = os.listdir(file_directory+"/"+filename)
             comic.sort()                                                #Sort to ensure the pages are displayed in the right order
             comic.remove("data.txt")                                    #remove data file from pages of comic
-
+            
             with open (file_directory+"/"+filename+"/data.txt") as data:#opening data.txt
                 tags = [line.rstrip() for line in data]                 #tags in a list, one on each line; removing trailing whitespace
             date = int(tags[0])                                         #date of the comic in the first line
             
             #Choosing whether to add the comic in search
+            no_tags = 0
             add = False
             if any([tag for tag in tags if tag in restricted_tags]) and restricted:
                 continue
             for tag in tags:
                 if tag in lower:
+                    no_tags += 1
                     add = True
 
             search_terms = lower.split()
@@ -144,18 +146,22 @@ def search():
                 add = True
                 
             if add:
-                filenames.append(((filename,comic[0]),date))
+                filenames.append(((filename,comic[0]),no_tags,date))
 
         def sortfn(element):
             return element[1]
+
+        filenames.sort()
+        filenames.sort(key=lambda filename: filename[2], reverse=True)#sort by date (secondary)
+        filenames.sort(key=lambda filename: filename[1], reverse=True)#sort by relevance (primary)
         
-        filenames.sort(key=sortfn, reverse=True)                        #sort by newest to oldest
         filenames = [filename[0] for filename in filenames]
+        
         
         total_pages= ceil(len(filenames)/files_per_page)
         total_files = len(filenames)
         filenames = filenames= filenames[files_per_page*(page-1):files_per_page*(page)]
         
-        
+        #return str(filenames)
         return render_template('search.html', filenames=filenames, total_files=total_files, search=search, current_page=page,  total_pages = total_pages)
                                
