@@ -41,5 +41,6 @@ Format:
   <li>Each comic directory has a 'data.txt' file to store tags associated with the comic.</li>
   <li>The first tag always has to be the date of release (in YYYYMMDD).</li>
   <li>Some tags label the comic as being of restricted access and are thus hidden unless such tags are searched for (read the code to figure out more).</li>
+</ul>
   
 <b><i>Note: Only a few sample comics have been placed here. If you want to try the website with more comics, find more on your own.</i></b>
