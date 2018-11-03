@@ -25,7 +25,7 @@ A sample website for viewing web comics
   <li>Comics come as directories with jpgs and a data file containing "tags" for that comic (first tag is the release date)</li>
   <li>Comics go in the 'static/files' folder</li>
   <li>Start the server with 'run application.cmd" or "run.sh" for development</li>
-  <li>Start the server with 'pro.sh' for actual deployment</li>
+  <li>Start the server with 'pro.sh' for actual deployment (only for unix-based OS)</li>
   <li>Go to localhost:5000 to view website</li>
 </ul>
 
