@@ -28,3 +28,8 @@ A sample website for viewing web comics
   <li>Start the server with 'pro.sh' for actual deployment</li>
   <li>Go to localhost:5000 to view website</li>
 </ul>
+
+<b>Logging</b><br>
+Searchs are logged in 'searches.txt'. <br>
+Format:
+<pre>[Search Term], [Public IP], [YYYY-MM-DD] [HH-MM-SS]</pre>
