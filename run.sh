@@ -2,7 +2,7 @@
 
 #Use for Linux Applications
 #Install flask if necessary
-pip3 install flask
+#pip3 install flask
 
 #Run the application
 export FLASK_APP=application.py

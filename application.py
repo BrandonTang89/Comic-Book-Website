@@ -4,11 +4,10 @@ import os
 import pytz
 from datetime import datetime
 from math import ceil
-
 import sys
 #Variables
 file_directory = "static/files"
-files_per_page = 10
+files_per_page = 12
 restricted_tags = ["hentai", "porn"]
 
 #Time settings
