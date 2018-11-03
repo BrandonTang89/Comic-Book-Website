@@ -33,3 +33,13 @@ A sample website for viewing web comics
 Searchs are logged in 'searches.txt'. <br>
 Format:
 <pre>[Search Term], [Public IP], [YYYY-MM-DD] [HH-MM-SS]</pre>
+
+<b>Comic File Format</b><br>
+<ul>
+  <li>Comics are directories containing images in jpg format.</li>
+  <li>Images are displayed in lexicographical order.</li>
+  <li>Each comic directory has a 'data.txt' file to store tags associated with the comic.</li>
+  <li>The first tag always has to be the date of release (in YYYYMMDD).</li>
+  <li>Some tags label the comic as being of restricted access and are thus hidden unless such tags are searched for (read the code to figure out more).</li>
+  
+<b><i>Note: Only a few sample comics have been placed here. If you want to try the website with more comics, find more on your own.</i></b>
